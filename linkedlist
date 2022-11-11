@@ -161,14 +161,3 @@ class LinkedList{
         return 'index exceeded';
     }
 }
-
-let node1= new Node('A');
-let list = new LinkedList(node1);
-list.append('B');
-list.append('C');
-list.append('D');
-list.append('E');
-list.prepend('Z');
-list.toString();
-list.removeAt(4);
-list.toString();
