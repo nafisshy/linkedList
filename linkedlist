@@ -1,0 +1,174 @@
+class Node{
+    constructor(data=null){
+        this.data =data;
+        this.next=null;
+    }
+}
+
+class LinkedList{
+    constructor(head=null){
+        this.head=head;
+    }
+
+    append(data){
+        let newNode = new Node(data);
+        if(this.head==null){
+            this.head=newNode;
+            return;
+        }
+        let prevlink=this.head;
+        let nextlink=this.head.next;
+        while(nextlink!=null){
+            //update both the current node and next node
+            prevlink= prevlink.next;
+            nextlink = nextlink.next;
+        }
+        // when next node null link data to the current node
+        prevlink.next=newNode;
+    }
+
+    toString(){
+        let nextlink=this.head;
+        let str="";
+        if(nextlink===null){
+            return null;
+        }
+        while(nextlink!==null){
+            str+=`(${nextlink.data}) -> `;
+            nextlink= nextlink.next;
+        }
+        str+=`null`;
+        console.log(str);
+    }
+
+    prepend(data){
+        let newNode = new Node(data);
+        newNode.next=this.head;
+        this.head = newNode;
+    }
+
+    size(){
+        let nextlink=this.head;
+        let count=0;
+        while(nextlink!=null){
+            count +=1;
+            nextlink= nextlink.next;
+        }
+        return count;
+    }
+
+    tail(){
+        let nextlink=this.head;
+        if(nextlink==null){
+            console.log('list empty');
+            return;
+        }
+        while(nextlink.next!=null){
+            nextlink= nextlink.next;
+        }
+        return nextlink;
+    }
+
+    at(index){
+        let nextlink=this.head;
+        let count=0;
+        while(nextlink!=null){
+            count +=1;
+            if(count===index) break;
+            nextlink= nextlink.next;
+        }
+        return nextlink;
+    }
+
+    pop(){
+        if(this.head==null){
+            return null;
+        }
+        let prevlink=this.head;
+        let nextlink=this.head.next;
+        while(nextlink.next!=null){
+            //update both the current node and next node
+            prevlink= prevlink.next;
+            nextlink = nextlink.next;
+        }
+        // when next node null link data to the current node
+        prevlink.next=null;
+        return nextlink;
+    }
+
+    contains(data){
+        let nextlink=this.head;
+        while(nextlink!=null){
+            if(nextlink.data===data){
+                return true;
+            }
+            nextlink= nextlink.next;
+        }
+        return false;
+    }
+
+    find(data){
+        let nextlink=this.head;
+        let count=0;
+        while(nextlink!=null){
+            count+=1;
+            if(nextlink.data===data){
+                return count;
+            }
+            nextlink= nextlink.next;
+        }
+        return null;
+    }
+
+    insertAt(data, index){
+        let newNode = new Node(data);
+        if(this.head===null){
+            this.head=newNode;
+            return true;
+        }
+        let count=1;//count is 1 because data needs to be inserted at the given index not after it
+        let prevlink=this.head;
+        let nextlink=this.head.next;
+        while(nextlink!=null){
+            count+=1;
+            if(count===index){
+                newNode.next=prevlink.next;
+                prevlink.next=newNode;
+                return;
+            }
+            prevlink= prevlink.next;
+            nextlink = nextlink.next;
+        }
+        return 'index exceeded';
+    }
+
+    removeAt(index){
+        if(this.head===null){
+            return null;
+        }
+        let count=1;
+        let prevlink=this.head;
+        let nextlink=this.head.next;
+        while(nextlink!=null){
+            count+=1;
+            if(count===index){
+                prevlink.next=nextlink.next;
+                return nextlink;
+            }
+            prevlink= prevlink.next;
+            nextlink = nextlink.next;
+        }
+        return 'index exceeded';
+    }
+}
+
+let node1= new Node('A');
+let list = new LinkedList(node1);
+list.append('B');
+list.append('C');
+list.append('D');
+list.append('E');
+list.prepend('Z');
+list.toString();
+list.removeAt(4);
+list.toString();
