@@ -87,11 +87,9 @@ class LinkedList{
         let prevlink=this.head;
         let nextlink=this.head.next;
         while(nextlink.next!=null){
-            //update both the current node and next node
             prevlink= prevlink.next;
             nextlink = nextlink.next;
         }
-        // when next node null link data to the current node
         prevlink.next=null;
         return nextlink;
     }
